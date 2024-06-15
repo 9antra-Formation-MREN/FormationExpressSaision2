@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const osController = require("../Controllers/osController");
 /* GET home page. */
-router.get("/os",osController.getOSInformations)
+router.get("/getOSInformations",osController.getOSInformations)
 
 router.get("/osCpus",osController.osCpus)
 

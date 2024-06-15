@@ -1,4 +1,3 @@
-const express = require("express");
 const os = require("os");
 
 module.exports.getOSInformations = (req, res) => {
@@ -47,3 +46,7 @@ module.exports.osCpusByID = (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
+//module.exports = { ,,,,}
