@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const http = require('http'); //1
 const { connectToMongoDB } = require('./db/BD'); //3
-
+const session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var osRouter= require('./routes/os');
@@ -20,6 +20,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: process.env.Net_Secret,
+  resave: false,
+  saveUninitialized : true,
+  cookie: { secure: false , maxAge: 2 *60 * 60} 
+}))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

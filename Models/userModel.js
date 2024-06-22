@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
     image_user: { type: String, required: false, default: "client.png" },
     ban : Boolean,
     
-    cars : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Car'}]
+    cars : { type: mongoose.Schema.Types.ObjectId, ref: 'Car'}
   },
   { timestamps: true }
 );

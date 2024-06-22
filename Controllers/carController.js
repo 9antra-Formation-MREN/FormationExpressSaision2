@@ -31,6 +31,11 @@ module.exports.addCar = async (req, res) => {
       throw new Error("User not found");
     }
 
+    // Check if the user already has a car
+    if (user.car) {
+      throw new Error("User already has a car");
+    }
+
     const car = new carModel({
       brand,
       model,
@@ -38,16 +43,18 @@ module.exports.addCar = async (req, res) => {
       owner: UserId,
     });
 
+    await car.save(); // Save the car first to get its _id
+
     await userModel.findByIdAndUpdate(UserId, {
-      //car : car._id
-      $push: { cars: car._id },
-    });
-    car.save();
+      cars: car._id
+    }, { new: true }); // Update the user with the car's _id
+
     res.status(200).json({ car });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 module.exports.deleteCar = async (req, res) => {
   try {
